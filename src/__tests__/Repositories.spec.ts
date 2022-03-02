@@ -30,9 +30,9 @@ describe('Repositories', () => {
 
     usersRepository = new UsersRepository();
 
-    await connection.query('DROP TABLE IF EXISTS users_statements_statements');
-    await connection.query('DROP TABLE IF EXISTS users');
-    await connection.query('DROP TABLE IF EXISTS statements');
+    await connection.query('DROP TABLE IF EXISTS users_statements_statements cascade');
+    await connection.query('DROP TABLE IF EXISTS users cascade');
+    await connection.query('DROP TABLE IF EXISTS statements cascade');
     await connection.query('DROP TABLE IF EXISTS migrations');
 
     await connection.runMigrations();
@@ -70,6 +70,12 @@ describe('Repositories', () => {
   });
 
   afterAll(async () => {
+
+    await connection.query('DROP TABLE IF EXISTS users_statements_statements cascade');
+    await connection.query('DROP TABLE IF EXISTS users cascade');
+    await connection.query('DROP TABLE IF EXISTS statements cascade');
+    await connection.query('DROP TABLE IF EXISTS migrations');
+
     await connection.close();
   });
 
